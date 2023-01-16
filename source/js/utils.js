@@ -129,7 +129,6 @@ const btf = {
   scrollToDest: (pos, time = 500) => {
     const currentPos = window.pageYOffset
     const isNavFixed = GLOBAL_CONFIG.isNavFixed
-    console.log(isNavFixed);
     if (currentPos > pos && !isNavFixed) pos = pos - 70
 
     if ('scrollBehavior' in document.documentElement.style) {
