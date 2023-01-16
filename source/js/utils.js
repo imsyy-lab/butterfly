@@ -59,7 +59,11 @@ const btf = {
   },
 
   snackbarShow: (text, showAction = false, duration = 2000) => {
-    const { position, bgLight, bgDark } = GLOBAL_CONFIG.Snackbar
+    const {
+      position,
+      bgLight,
+      bgDark
+    } = GLOBAL_CONFIG.Snackbar
     const bg = document.documentElement.getAttribute('data-theme') === 'light' ? bgLight : bgDark
     Snackbar.show({
       text,
@@ -113,7 +117,9 @@ const btf = {
           callback()
           observerItem.disconnect()
         }
-      }, { threshold: [0] })
+      }, {
+        threshold: [0]
+      })
       observerItem.observe(dom)
     } else {
       callback()
@@ -122,11 +128,13 @@ const btf = {
 
   scrollToDest: (pos, time = 500) => {
     const currentPos = window.pageYOffset
-    if (currentPos > pos) pos = pos - 70
+    const isNavFixed = GLOBAL_CONFIG.isNavFixed
+    console.log(isNavFixed);
+    if (currentPos > pos && !isNavFixed) pos = pos - 70
 
     if ('scrollBehavior' in document.documentElement.style) {
       window.scrollTo({
-        top: pos,
+        top: isNavFixed ? pos - 70 : pos,
         behavior: 'smooth'
       })
       return
@@ -134,7 +142,7 @@ const btf = {
 
     let start = null
     pos = +pos
-    window.requestAnimationFrame(function step (currentTime) {
+    window.requestAnimationFrame(function step(currentTime) {
       start = !start ? currentTime : start
       const progress = currentTime - start
       if (currentPos < pos) {
@@ -156,7 +164,7 @@ const btf = {
   },
 
   animateOut: (ele, text) => {
-    ele.addEventListener('animationend', function f () {
+    ele.addEventListener('animationend', function f() {
       ele.style.display = ''
       ele.style.animation = ''
       ele.removeEventListener('animationend', f)
@@ -234,7 +242,12 @@ const btf = {
         if (i.parentNode.tagName !== 'A') {
           const dataSrc = i.dataset.lazySrc || i.src
           const dataCaption = i.title || i.alt || ''
-          btf.wrap(i, 'a', { href: dataSrc, 'data-fancybox': 'gallery', 'data-caption': dataCaption, 'data-thumb': dataSrc })
+          btf.wrap(i, 'a', {
+            href: dataSrc,
+            'data-fancybox': 'gallery',
+            'data-caption': dataCaption,
+            'data-thumb': dataSrc
+          })
         }
       })
 
