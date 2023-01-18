@@ -212,8 +212,8 @@ const btf = {
   isHidden: ele => ele.offsetHeight === 0 && ele.offsetWidth === 0,
 
   getEleTop: ele => {
-    let actualTop = ele.offsetTop
-    let current = ele.offsetParent
+    let actualTop = ele ? ele.offsetTop : null
+    let current = ele ? ele.offsetParent : null
 
     while (current !== null) {
       actualTop += current.offsetTop

@@ -7,8 +7,8 @@ window.addEventListener('load', () => {
     const bodyStyle = document.body.style
     bodyStyle.width = '100%'
     bodyStyle.overflow = 'hidden'
-    btf.animateIn($searchMask, 'to_show 0.5s')
-    btf.animateIn(document.querySelector('#local-search .search-dialog'), 'titleScale 0.5s')
+    btf.animateIn($searchMask, 'to_show 0.3s')
+    btf.animateIn(document.querySelector('#local-search .search-dialog'), 'titleScale 0.3s')
     setTimeout(() => { document.querySelector('#local-search-input input').focus() }, 100)
     if (!loadFlag) {
       search()
@@ -27,8 +27,8 @@ window.addEventListener('load', () => {
     const bodyStyle = document.body.style
     bodyStyle.width = ''
     bodyStyle.overflow = ''
-    btf.animateOut(document.querySelector('#local-search .search-dialog'), 'search_close .5s')
-    btf.animateOut($searchMask, 'to_hide 0.5s')
+    btf.animateOut(document.querySelector('#local-search .search-dialog'), 'search_close .3s')
+    btf.animateOut($searchMask, 'to_hide 0.3s')
   }
 
   const searchClickFn = () => {

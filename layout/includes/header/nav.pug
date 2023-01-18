@@ -7,7 +7,8 @@ nav#nav(class=isFixedClass)
           if theme.nav.logo
             img.site-icon(src=url_for(theme.nav.logo))
           if theme.nav.display_title
-            span.site-name=config.title   
+            span#site-name=config.title
+            i#site-icon.fa-solid.fa-house
     #menus
       !=partial('includes/header/menu_item', {}, {cache: true})
     #nav-title-mask
@@ -24,13 +25,13 @@ nav#nav(class=isFixedClass)
     #nav-right
       if (theme.algolia_search.enable || theme.local_search.enable)
         #search-button.menu-button
-          a.site-page.social-icon.search(href="javascript:void(0);")
+          a.site-page.social-icon.search
             i.fa-solid.fa-magnifying-glass
       #darkmode-button.menu-button
-        a.nav-darkmode(href="javascript:fc.switchDarkMode();")
+        a.nav-darkmode
           i.fa-solid.fa-circle-half-stroke
       #toggle-menu
-        a.site-page(href="javascript:void(0);")
+        a.site-page
           i.fas.fa-bars.fa-fw
 
 
