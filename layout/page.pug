@@ -4,6 +4,8 @@ block content
   #page
     if top_img === false
       h1.page-title= page.title
+      if page.desc 
+        span.desc-title=page.desc
 
     case page.type
       when 'tags'
@@ -12,6 +14,8 @@ block content
         include includes/page/flink.pug
       when 'categories'
         include includes/page/categories.pug
+      when 'talk'
+        include includes/page/talk.pug
       default
         include includes/page/default-page.pug
 

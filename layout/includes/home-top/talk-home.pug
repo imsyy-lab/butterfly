@@ -1,0 +1,57 @@
+//- 即刻首页列表
+#talkHome 
+    .icon
+        i.fa-brands.fa-slack(onclick=`pjax.loadUrl("/talk/")`,title="即刻")
+    #talk-container.swiper-container.swiper-no-swiping(tabindex="-1")
+        #talk-list.swiper-wrapper(onclick=`pjax.loadUrl("/talk/")`)
+            .loading
+                i.loading-icon.fa-solid.fa-spinner
+                span="即刻加载中"
+    .go 
+        i.fa-solid.fa-circle-chevron-right(onclick=`pjax.loadUrl("/talk/")`,title="查看全部")
+
+script.
+    function talkHomeHtml(data,error=false){
+        const talkList = document.getElementById("talk-list");
+        if(talkList) talkList.innerHTML = "";
+        if(error){
+            btf.snackbarShow("即刻获取失败");
+            talkList.innerHTML = `
+            <div class="loading">
+                <i class="fa-solid fa-circle-exclamation"></i>
+                <span>即刻加载失败</span>
+            </div>`;
+            console.error('即刻获取失败:', data);
+        }else{
+            if(talkList){
+                data.forEach((v) => {
+                    talkList.innerHTML += `<div class="talk-home-item swiper-slide">${v.title}</div>`;
+                });
+                // swiper 滚动
+                let swiper = new Swiper('.swiper-container', {
+                    direction: 'vertical',
+                    loop: true,
+                    autoplay: {
+                        delay: 3000,
+                        pauseOnMouseEnter: false
+                    },
+                });
+                swiper.el.onmouseover=()=>{
+                    swiper.autoplay.stop();
+                }
+                swiper.el.onmouseleave=()=>{
+                    swiper.autoplay.start();
+                }
+            }   
+        }
+    }
+    if(JSON.parse(sessionStorage.getItem("talkData"))&&JSON.parse(sessionStorage.getItem("talkData")).items){
+        talkHomeHtml(JSON.parse(sessionStorage.getItem("talkData")).items)
+    }else{
+        stools.getTalkData().then(res=>{
+            sessionStorage.setItem("talkData", JSON.stringify(res.data));
+            talkHomeHtml(res.data.items);
+        }).catch(error => {
+            talkHomeHtml(error,true);
+        });
+    }

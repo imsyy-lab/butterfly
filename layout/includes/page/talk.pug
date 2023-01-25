@@ -1,0 +1,47 @@
+#talk
+    .loading
+        i.loading-icon.fa-solid.fa-spinner
+        span="即刻加载中"
+//- button(onclick="stools.getTalkData()")="刷新"
+
+- let talkPage = 1
+script.
+    function talkHtml(data,error=false){
+        const talk = document.getElementById("talk");
+        talk.innerHTML = "";
+        if(error){
+            btf.snackbarShow("即刻获取失败");
+            talk.innerHTML = `
+            <div class="loading">
+                <i class="fa-solid fa-circle-exclamation"></i>
+                <span>即刻加载失败</span>
+            </div>`;
+            console.error('即刻获取失败:', data);
+        }else{
+            if(talk) data.forEach((v) => {
+                talk.innerHTML += `
+                <div class="talk-item">
+                    <div class="talk-content">
+                        <p class="title">${v.title}</p>
+                        <div class="text">${stools.markdownToHtml(v.content)}</div>
+                    </div>
+                    <div class="talk-desc">
+                        <div class="time">
+                            <i class="fa-solid fa-clock"></i>
+                            <span>${stools.getISOTime(v.updatedAt)}</span>
+                        </div>
+                    </div>
+                </div>`;
+            });
+        }
+    }
+    if(JSON.parse(sessionStorage.getItem("talkData"))&&JSON.parse(sessionStorage.getItem("talkData")).items){
+        talkHtml(JSON.parse(sessionStorage.getItem("talkData")).items)
+    }else{
+        stools.getTalkData().then(res=>{
+            sessionStorage.setItem("talkData", JSON.stringify(res.data));
+            talkHtml(res.data.items);
+        }).catch(error => {
+            talkHtml(error,true);
+        });
+    }

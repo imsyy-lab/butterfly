@@ -1,0 +1,5 @@
+#category-bar
+  .i.icon.fa-regular.fa-folder-open
+  .bar-items#category-bar-items
+    !=getarray_bar("category")
+  .i.more.fa-solid.fa-ellipsis(onclick=`pjax.loadUrl("/categories/")`,title="查看全部")
