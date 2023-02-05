@@ -65,6 +65,7 @@ const btf = {
       bgDark
     } = GLOBAL_CONFIG.Snackbar
     const bg = document.documentElement.getAttribute('data-theme') === 'light' ? bgLight : bgDark
+    document.documentElement.style.setProperty('--imsyy-snackbar-time', duration + 'ms');
     Snackbar.show({
       text,
       backgroundColor: bg,

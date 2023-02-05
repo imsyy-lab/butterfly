@@ -1,14 +1,14 @@
 //- 即刻首页列表
-#talkHome 
-    .icon
-        i.fa-brands.fa-slack(onclick=`pjax.loadUrl("/talk/")`,title="即刻")
+#talkHome.shadow 
+    .icon(onclick=`pjax.loadUrl("/talk/")`,title="即刻")
+        i.fa-brands.fa-slack
     #talk-container.swiper-container.swiper-no-swiping(tabindex="-1")
         #talk-list.swiper-wrapper(onclick=`pjax.loadUrl("/talk/")`)
             .loading
                 i.loading-icon.fa-solid.fa-spinner
                 span="即刻加载中"
-    .go 
-        i.fa-solid.fa-circle-chevron-right(onclick=`pjax.loadUrl("/talk/")`,title="查看全部")
+    .go(onclick=`pjax.loadUrl("/talk/")`,title="查看全部") 
+        i.fa-solid.fa-circle-chevron-right
 
 script.
     function talkHomeHtml(data,error=false){
