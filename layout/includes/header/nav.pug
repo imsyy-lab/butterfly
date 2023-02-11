@@ -29,10 +29,10 @@ nav#nav(class=isFixedClass)
         #search-button.menu-button
           a.site-page.social-icon.search
             i.fa-solid.fa-magnifying-glass
-      #darkmode-button.menu-button
+      #darkmode-button.menu-button(onclick="rightSideFn.switchDarkMode()")
         a.nav-darkmode
           i.fa-solid.fa-circle-half-stroke
-      #control-button.menu-button(onclick=`stools.controlShow()`)
+      #control-button.menu-button(onclick="stools.controlShow()")
         a.nav-control
           i.fa-solid.fa-server
       #toggle-menu.menu-button
